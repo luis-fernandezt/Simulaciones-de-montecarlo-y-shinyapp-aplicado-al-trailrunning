@@ -1,32 +1,33 @@
 # Simulaciones montecarlo & Shinyapp aplicado al trailrunning
 
 ## 1. Introducción
-
+ 
 Este estudio busca estimar el posible desempeño de la selección chilena en el Campeonato Mundial de Trail Running, a partir de la comparación y combinación de los resultados del Mundial de Innsbruck 2023 y el selectivo nacional Nahuelbuta ALL IN 2025. 
-Se diseña una aplicación web Shiny para la simulación por distribución de probabilidad usando el método de montecarlo, aplicado al desempeño de corredores del selectivo de trailrunning Chile Nahuelbuta ALL IN 2025 si hubieran participado en el WMTRC Innsbruck 2023.
+Se diseña una aplicación web Shiny para la simulación por distribución de probabilidad usando el método de montecarlo, aplicado al desempeño de corredores del selectivo de trailrunning Chile Nahuelbuta ALL IN 2025 **como** si hubieran participado en el WMTRC Innsbruck 2023.
 
 ## 2. Carga y Preparación de Datos
 
 Las bases de datos con los resultados del selectivo nacional 2025 y mundial de Innsbruck 2023 estan disponibles en:   
 
-[WMTRC_Innsbruck.csv](https://raw.githubusercontent.com/luis-fernandezt/Chile_Mundial_TrailRun_Results/refs/heads/main/data/WMTRC_Innsbruck.csv)
-[Selectivo.csv](https://raw.githubusercontent.com/luis-fernandezt/Chile_Mundial_TrailRun_Results/refs/heads/main/data/WMTRC_Innsbruck.csv)
+- [WMTRC_Innsbruck.csv](https://raw.githubusercontent.com/luis-fernandezt/Simulaciones-de-montecarlo-y-shinyapp-aplicado-al-trailrunning/refs/heads/main/data/WMTRC_Innsbruck.csv) 
+- [Selectivo.csv](https://raw.githubusercontent.com/luis-fernandezt/Simulaciones-de-montecarlo-y-shinyapp-aplicado-al-trailrunning/refs/heads/main/data/Selectivo.csv)
+- [Matriz de calculos en Excel](https://github.com/luis-fernandezt/Simulaciones-de-montecarlo-y-shinyapp-aplicado-al-trailrunning/raw/refs/heads/main/data/Selectivo_results.xlsx)
 
 ## 3. Estandarización por Distancia
 
-Para normalizar la distancia del selectivo primero se estimo el tiempo promedio por cada kilometro del corredor, dividiendo el tiempo en meta del selectivo por la distancia completada. Luego el tiempo por kilómetro se multiplico por la distancia que hipoteticamente completaría en el mundial.
-Se incluyo un ajuste manual en la aplicación shiny, para aumentar el tiempo por kilometro según el porcentaje de cansancio que pudiera ir teniendo cada corredor y ajustar a la realidad el resultado de la simulación.
+Para normalizar la distancia del selectivo primero se estimo el tiempo promedio por cada kilometro del corredor o corredora, dividiendo el tiempo en meta del selectivo por la distancia completada. Luego el tiempo por kilómetro se multiplico por la distancia que hipoteticamente completaría en el mundial.
+Se incluyo un ajuste manual en la aplicación shiny, para aumentar el tiempo por kilometro según el porcentaje de cansancio que pudiera ir teniendo la persona y ajustar el resultado de la simulación.
 
-|   **Carrera**   | **Nahuelbuta ALL IN** | **Innsbruck-Stubai** |
-|:---------------:|:---------------------:|:--------------------:|
-|  **Trail Long** |         65 km         |         87 km        |
-| **Trail Short** |         43 Km         |        45,2 km       |
-|   **Classic**   |         16 km         |         15 km        |
-|    **Junior**   |          8 km         |         7 km         |
+|   **Carrera**   | **Nahuelbuta ALL IN** | **Innsbruck-Stubai** | **% Cansancio aproximado** |
+|:---------------:|:---------------------:|:--------------------:|:--------------------------:|
+|  **Trail Long** |         65 km         |         87 km        |         >18% (1.18)        |
+| **Trail Short** |         43 Km         |        45,2 km       |         >11% (1.11)        |
+|   **Classic**   |         16 km         |         15 km        |        >= 1% (1.01)        |
+|    **Junior**   |          8 km         |         7 km         |        >= 1% (1.01)        |
 
 ## 4. Simulación Monte Carlo
 
-Para modelar la incertidumbre en el rendimiento de los corredores nacionales frente a los del Campeonato Mundial, se utilizará una simulación de Monte Carlo.
+Permite modelar la incertidumbre en el rendimiento de los corredores nacionales frente a los del Campeonato Mundial, se utilizará una simulación de Monte Carlo.
 
 ## Fundamento metodológico
 
@@ -36,18 +37,20 @@ $$
 T^*_i = T_i + \epsilon_i \quad \text{donde} \quad \epsilon_i \sim \mathcal{N}(0, \sigma_T^2 \cdot \alpha^2)
 $$
 
+Donde:
 
-- \( T^*_i \): Tiempo simulado del corredor \( i \).
-- \( T_i \): Tiempo original del corredor \( i \) (en minutos).
-- \( \epsilon_i \): Ruido aleatorio simulado.
-- \( \sigma_T \): Desviación estándar de los tiempos observados en la base combinada.
-- \( \alpha = 0.1 \): Parámetro de escala que controla la magnitud de la variabilidad (10% de la desviación estándar total).
+- $T^*_i$: Tiempo simulado del corredor $i$.
+- $T_i$: Tiempo original del corredor $i$ (en minutos).
+- $\epsilon_i$: Ruido aleatorio simulado.
+- $\sigma_T$: Desviación estándar de los tiempos observados en la base combinada.
+- $\alpha = 0.1$: Parámetro de escala que controla la magnitud de la variabilidad (10% de la desviación estándar total).
 
-Esta simulación se repite \( n = 10000 \) veces para estimar la distribución empírica de las posiciones alcanzadas por los corredores seleccionados. Esta cantidad de iteraciones busca lograr una estimación estable de las probabilidades de ranking sin ser excesivamente costosa computacionalmente.
+
+Esta simulación se repite $n = 10.000$ veces para estimar la distribución empírica de las posiciones alcanzadas por los corredores seleccionados. Esta cantidad de iteraciones busca lograr una estimación estable de las probabilidades de ranking sin ser excesivamente costosa computacionalmente.
 
 ## Propósito
 
-La finalidad de esta simulación es estimar probabilísticamente la posición que podrían alcanzar los corredores chilenos al participar en una carrera con el mismo nivel de competencia que el Mundial. Al analizar las posiciones simuladas en múltiples iteraciones, se pueden obtener medidas como:
+La finalidad de esta simulación es estimar probabilísticamente la posición que podrían alcanzar los corredores chilenos al participar en una carrera con el mismo nivel de competencia que el Mundial.
 
 ## Explicación Paso a Paso
 
@@ -126,8 +129,11 @@ Este análisis no predice con certeza el resultado final, pero entrega una base 
 
 ## 6. Presentación de aplicación Shiny
 
-Si ejectuta el scrip llamado **shiny_app.R** alojado en este repositorio, estaría en condiciones de correr la aplicación web de shiny en su maquina local a traves del navegador web por defecto.
-Tambien dejo un acceso directo a al aplicación web de prueba, disponible en:
+![](https://www.datascienceportfol.io/static/profile_pics/pr2_4CE0B84ECD459166959B.png)  
+
+Si ejectuta el scrip llamado **shiny_app.R** alojado en este repositorio, estaría en condiciones de correr la aplicación web de shiny en su maquina local a traves del navegador web por defecto. 
+
+Tambien dejo un acceso directo a la aplicación web de prueba, disponible en:
 
 [https://luis-fernandezt.shinyapps.io/Selectivo_Trail/](https://luis-fernandezt.shinyapps.io/Selectivo_Trail/)
 
@@ -137,4 +143,5 @@ Para ver los resultados historicos de la participación de los seleccionados nac
 
 [https://github.com/luis-fernandezt/Chile_Mundial_TrailRun_Results](https://github.com/luis-fernandezt/Chile_Mundial_TrailRun_Results)
 
-
+##### 04/11/2022-06/11/2022 | Chiang Mai, Tailandia 
+##### 07/06/2023-10/06/2023 | Innsbruck-Stubai, Austria
