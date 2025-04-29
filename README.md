@@ -119,13 +119,13 @@ Este procedimiento permite estimar la **variabilidad de las posiciones finales**
 
 ## 5. Resultados Esperados
 
-A continuación se presenta un resumen del desempeño proyectado para cada corredor o corredora de la selección chilena, basado en 10000 simulaciones que modelan posibles escenarios de competencia internacional.
+Se espera simular el desempeño proyectado para cada corredor o corredora de la selección chilena, basado en 10000 simulaciones que modelan posibles escenarios de competencia internacional.
 
 Cada simulación representa una carrera hipotética, considerando la variabilidad normal que puede ocurrir en el rendimiento (por ejemplo, por clima, altitud o estado físico del día).
 
-También se incluye un gráfico de cajas (boxplot) y distribución normal, visualizando la dispersión de posiciones para cada corredor, permitiendo comparar de forma intuitiva quiénes tienen mayor regularidad o probabilidad de destacarse.
+El resultado de cada aplicación del ajuste, entrega un gráfico de cajas (boxplot) y distribución normal, visualizando la dispersión de posiciones para cada corredor, tiempo en cruzar la meta, intervalos confianza de posición inferior y superior;  permitiendo comparar de forma intuitiva quiénes tienen mayor regularidad o probabilidad de destacarse.
 
-Este análisis no predice con certeza el resultado final, pero entrega una base sólida para estimar el posible desempeño en un contexto competitivo realista.
+Este análisis **no predice con certeza el resultado final**, pero entrega una base sólida para estimar el posible desempeño en un contexto competitivo realista.
 
 ## 6. Presentación de aplicación Shiny
 
