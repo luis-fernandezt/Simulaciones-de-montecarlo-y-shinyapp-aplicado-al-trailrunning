@@ -1,4 +1,4 @@
-# Simulaciones montecarlo & Shinyapp aplicado al trailrunning
+# Simulaciones montecarlo & shinyapp aplicado al trailrunning
 
 ## 1. Introducción
  
