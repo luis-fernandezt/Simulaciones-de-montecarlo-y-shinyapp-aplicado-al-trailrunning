@@ -2,7 +2,8 @@
 
 ## 1. Introducción
  
-Este estudio busca estimar el posible desempeño de la selección chilena en el Campeonato Mundial de Trail Running, a partir de la comparación y combinación de los resultados del Mundial de Innsbruck 2023 y el selectivo nacional Nahuelbuta ALL IN 2025. 
+**Este estudio busca estimar de forma teórica como le hubiera ido a la selección chilena de trail del año 2025 en el Campeonato Mundial de Trail Running Innsbruck 2023.**
+
 Se diseña una aplicación web Shiny para la simulación por distribución de probabilidad usando el método de montecarlo, aplicado al desempeño de corredores del selectivo de trailrunning Chile Nahuelbuta ALL IN 2025 **como si hubieran participado** en el WMTRC Innsbruck 2023.
 
 ## 2. Carga y Preparación de Datos
